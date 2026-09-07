@@ -17,27 +17,16 @@
 import type { PlaystateCommand } from './playstate-command';
 
 /**
- * 
- * @export
- * @interface PlaystateRequest
+ * A request to change the playstate of a session.
  */
 export interface PlaystateRequest {
-    /**
-     * 
-     * @type {PlaystateCommand}
-     * @memberof PlaystateRequest
-     */
     'Command'?: PlaystateCommand;
     /**
-     * 
-     * @type {number}
-     * @memberof PlaystateRequest
+     * Gets or sets the seek position in ticks.
      */
     'SeekPositionTicks'?: number | null;
     /**
      * Gets or sets the controlling user identifier.
-     * @type {string}
-     * @memberof PlaystateRequest
      */
     'ControllingUserId'?: string | null;
 }

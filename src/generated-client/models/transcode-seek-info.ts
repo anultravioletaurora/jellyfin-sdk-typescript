@@ -14,9 +14,7 @@
 
 
 /**
- * 
- * @export
- * @enum {string}
+ * The transcode seek info.
  */
 
 export const TranscodeSeekInfo = {

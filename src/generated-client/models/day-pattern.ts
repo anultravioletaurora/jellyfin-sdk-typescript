@@ -14,9 +14,7 @@
 
 
 /**
- * 
- * @export
- * @enum {string}
+ * The day pattern of a recurring timer.
  */
 
 export const DayPattern = {

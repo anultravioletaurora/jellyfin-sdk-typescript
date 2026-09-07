@@ -14,9 +14,7 @@
 
 
 /**
- * 
- * @export
- * @enum {string}
+ * The play method.
  */
 
 export const PlayMethod = {

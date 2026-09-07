@@ -14,9 +14,7 @@
 
 
 /**
- * 
- * @export
- * @enum {string}
+ * The status of a live TV service.
  */
 
 export const LiveTvServiceStatus = {

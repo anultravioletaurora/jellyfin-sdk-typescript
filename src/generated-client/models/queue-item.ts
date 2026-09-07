@@ -14,21 +14,15 @@
 
 
 /**
- * 
- * @export
- * @interface QueueItem
+ * An item in a play queue.
  */
 export interface QueueItem {
     /**
-     * 
-     * @type {string}
-     * @memberof QueueItem
+     * Gets or sets the item id.
      */
     'Id'?: string;
     /**
-     * 
-     * @type {string}
-     * @memberof QueueItem
+     * Gets or sets the playlist item id.
      */
     'PlaylistItemId'?: string | null;
 }

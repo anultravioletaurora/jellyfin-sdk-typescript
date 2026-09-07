@@ -14,9 +14,7 @@
 
 
 /**
- * 
- * @export
- * @enum {string}
+ * The codec type of a codec profile.
  */
 
 export const CodecType = {

@@ -14,9 +14,7 @@
 
 
 /**
- * 
- * @export
- * @enum {string}
+ * The type of a media source.
  */
 
 export const MediaSourceType = {

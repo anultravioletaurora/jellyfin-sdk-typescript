@@ -14,9 +14,7 @@
 
 
 /**
- * 
- * @export
- * @enum {string}
+ * The encoding context.
  */
 
 export const EncodingContext = {

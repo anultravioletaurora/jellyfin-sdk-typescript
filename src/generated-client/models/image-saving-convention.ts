@@ -14,9 +14,7 @@
 
 
 /**
- * 
- * @export
- * @enum {string}
+ * The convention used for naming saved images.
  */
 
 export const ImageSavingConvention = {

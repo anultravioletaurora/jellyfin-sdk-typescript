@@ -17,22 +17,13 @@
 import type { SessionMessageType } from './session-message-type';
 
 /**
- * Sessions start message.  Data is the timing data encoded as \"$initialDelay,$interval\" in ms.
- * @export
- * @interface SessionsStartMessage
+ * Sessions start message. Data is the timing data encoded as \"$initialDelay,$interval\" in ms.
  */
 export interface SessionsStartMessage {
     /**
      * Gets or sets the data.
-     * @type {string}
-     * @memberof SessionsStartMessage
      */
     'Data'?: string | null;
-    /**
-     * 
-     * @type {SessionMessageType}
-     * @memberof SessionsStartMessage
-     */
     'MessageType'?: SessionMessageType;
 }
 

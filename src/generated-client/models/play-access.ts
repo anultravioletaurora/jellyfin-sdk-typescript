@@ -14,9 +14,7 @@
 
 
 /**
- * 
- * @export
- * @enum {string}
+ * The play access of an item.
  */
 
 export const PlayAccess = {

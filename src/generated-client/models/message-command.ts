@@ -14,27 +14,19 @@
 
 
 /**
- * 
- * @export
- * @interface MessageCommand
+ * A command to display a message on a client.
  */
 export interface MessageCommand {
     /**
-     * 
-     * @type {string}
-     * @memberof MessageCommand
+     * Gets or sets the message header.
      */
     'Header'?: string | null;
     /**
-     * 
-     * @type {string}
-     * @memberof MessageCommand
+     * Gets or sets the message text.
      */
     'Text': string;
     /**
-     * 
-     * @type {number}
-     * @memberof MessageCommand
+     * Gets or sets the timeout in milliseconds after which the message should be dismissed.
      */
     'TimeoutMs'?: number | null;
 }

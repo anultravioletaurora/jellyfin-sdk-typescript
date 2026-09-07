@@ -22,4 +22,5 @@ export interface DeviceInfo {
 	 * @example "Violet's iPhone"
 	 */
 	name: string
+	languages?: string[];
 }

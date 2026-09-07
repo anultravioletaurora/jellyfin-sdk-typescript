@@ -15,8 +15,6 @@
 
 /**
  * The person kind.
- * @export
- * @enum {string}
  */
 
 export const PersonKind = {
@@ -44,7 +42,8 @@ export const PersonKind = {
     Letterer: 'Letterer',
     CoverArtist: 'CoverArtist',
     Editor: 'Editor',
-    Translator: 'Translator'
+    Translator: 'Translator',
+    Narrator: 'Narrator'
 } as const;
 
 export type PersonKind = typeof PersonKind[keyof typeof PersonKind];

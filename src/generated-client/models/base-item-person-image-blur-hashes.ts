@@ -15,87 +15,20 @@
 
 /**
  * Gets or sets the primary image blurhash.
- * @export
- * @interface BaseItemPersonImageBlurHashes
  */
 export interface BaseItemPersonImageBlurHashes {
-    /**
-     * 
-     * @type {{ [key: string]: string; }}
-     * @memberof BaseItemPersonImageBlurHashes
-     */
-    'Primary'?: { [key: string]: string; };
-    /**
-     * 
-     * @type {{ [key: string]: string; }}
-     * @memberof BaseItemPersonImageBlurHashes
-     */
-    'Art'?: { [key: string]: string; };
-    /**
-     * 
-     * @type {{ [key: string]: string; }}
-     * @memberof BaseItemPersonImageBlurHashes
-     */
-    'Backdrop'?: { [key: string]: string; };
-    /**
-     * 
-     * @type {{ [key: string]: string; }}
-     * @memberof BaseItemPersonImageBlurHashes
-     */
-    'Banner'?: { [key: string]: string; };
-    /**
-     * 
-     * @type {{ [key: string]: string; }}
-     * @memberof BaseItemPersonImageBlurHashes
-     */
-    'Logo'?: { [key: string]: string; };
-    /**
-     * 
-     * @type {{ [key: string]: string; }}
-     * @memberof BaseItemPersonImageBlurHashes
-     */
-    'Thumb'?: { [key: string]: string; };
-    /**
-     * 
-     * @type {{ [key: string]: string; }}
-     * @memberof BaseItemPersonImageBlurHashes
-     */
-    'Disc'?: { [key: string]: string; };
-    /**
-     * 
-     * @type {{ [key: string]: string; }}
-     * @memberof BaseItemPersonImageBlurHashes
-     */
-    'Box'?: { [key: string]: string; };
-    /**
-     * 
-     * @type {{ [key: string]: string; }}
-     * @memberof BaseItemPersonImageBlurHashes
-     */
-    'Screenshot'?: { [key: string]: string; };
-    /**
-     * 
-     * @type {{ [key: string]: string; }}
-     * @memberof BaseItemPersonImageBlurHashes
-     */
-    'Menu'?: { [key: string]: string; };
-    /**
-     * 
-     * @type {{ [key: string]: string; }}
-     * @memberof BaseItemPersonImageBlurHashes
-     */
-    'Chapter'?: { [key: string]: string; };
-    /**
-     * 
-     * @type {{ [key: string]: string; }}
-     * @memberof BaseItemPersonImageBlurHashes
-     */
-    'BoxRear'?: { [key: string]: string; };
-    /**
-     * 
-     * @type {{ [key: string]: string; }}
-     * @memberof BaseItemPersonImageBlurHashes
-     */
-    'Profile'?: { [key: string]: string; };
+    'Primary'?: { [key: string]: string | null; };
+    'Art'?: { [key: string]: string | null; };
+    'Backdrop'?: { [key: string]: string | null; };
+    'Banner'?: { [key: string]: string | null; };
+    'Logo'?: { [key: string]: string | null; };
+    'Thumb'?: { [key: string]: string | null; };
+    'Disc'?: { [key: string]: string | null; };
+    'Box'?: { [key: string]: string | null; };
+    'Screenshot'?: { [key: string]: string | null; };
+    'Menu'?: { [key: string]: string | null; };
+    'Chapter'?: { [key: string]: string | null; };
+    'BoxRear'?: { [key: string]: string | null; };
+    'Profile'?: { [key: string]: string | null; };
 }
 

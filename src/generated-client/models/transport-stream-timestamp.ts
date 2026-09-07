@@ -14,9 +14,7 @@
 
 
 /**
- * 
- * @export
- * @enum {string}
+ * The type of timestamps used in a transport stream.
  */
 
 export const TransportStreamTimestamp = {

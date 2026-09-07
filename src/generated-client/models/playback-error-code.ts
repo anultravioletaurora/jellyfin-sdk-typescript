@@ -14,9 +14,7 @@
 
 
 /**
- * 
- * @export
- * @enum {string}
+ * The playback error code.
  */
 
 export const PlaybackErrorCode = {

@@ -14,9 +14,7 @@
 
 
 /**
- * 
- * @export
- * @enum {string}
+ * The type of a community rating.
  */
 
 export const RatingType = {

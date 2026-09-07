@@ -15,24 +15,14 @@
 // May contain unused imports in some cases
 // @ts-ignore
 import type { NameGuidPair } from './name-guid-pair';
+// May contain unused imports in some cases
+// @ts-ignore
+import type { NameValuePair } from './name-value-pair';
 
-/**
- * 
- * @export
- * @interface QueryFilters
- */
 export interface QueryFilters {
-    /**
-     * 
-     * @type {Array<NameGuidPair>}
-     * @memberof QueryFilters
-     */
     'Genres'?: Array<NameGuidPair> | null;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof QueryFilters
-     */
     'Tags'?: Array<string> | null;
+    'AudioLanguages'?: Array<NameValuePair> | null;
+    'SubtitleLanguages'?: Array<NameValuePair> | null;
 }
 

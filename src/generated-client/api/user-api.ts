@@ -17,27 +17,13 @@ import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios';
 import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction, replaceWithSerializableTypeIfNeeded } from '../common';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, type RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
-import type { AuthenticateUserByName } from '../models';
-// @ts-ignore
-import type { AuthenticationResult } from '../models';
-// @ts-ignore
 import type { CreateUserByName } from '../models';
 // @ts-ignore
-import type { ForgotPasswordDto } from '../models';
-// @ts-ignore
-import type { ForgotPasswordPinDto } from '../models';
-// @ts-ignore
-import type { ForgotPasswordResult } from '../models';
-// @ts-ignore
-import type { PinRedeemResult } from '../models';
-// @ts-ignore
 import type { ProblemDetails } from '../models';
-// @ts-ignore
-import type { QuickConnectDto } from '../models';
 // @ts-ignore
 import type { UpdateUserPassword } from '../models';
 // @ts-ignore
@@ -48,82 +34,9 @@ import type { UserDto } from '../models';
 import type { UserPolicy } from '../models';
 /**
  * UserApi - axios parameter creator
- * @export
  */
 export const UserApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
-        /**
-         * 
-         * @summary Authenticates a user by name.
-         * @param {AuthenticateUserByName} authenticateUserByName The M:Jellyfin.Api.Controllers.UserController.AuthenticateUserByName(Jellyfin.Api.Models.UserDtos.AuthenticateUserByName) request.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        authenticateUserByName: async (authenticateUserByName: AuthenticateUserByName, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'authenticateUserByName' is not null or undefined
-            assertParamExists('authenticateUserByName', 'authenticateUserByName', authenticateUserByName)
-            const localVarPath = `/Users/AuthenticateByName`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(authenticateUserByName, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Authenticates a user with quick connect.
-         * @param {QuickConnectDto} quickConnectDto The Jellyfin.Api.Models.UserDtos.QuickConnectDto request.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        authenticateWithQuickConnect: async (quickConnectDto: QuickConnectDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'quickConnectDto' is not null or undefined
-            assertParamExists('authenticateWithQuickConnect', 'quickConnectDto', quickConnectDto)
-            const localVarPath = `/Users/AuthenticateWithQuickConnect`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(quickConnectDto, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
         /**
          * 
          * @summary Creates a user.
@@ -149,9 +62,8 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
             // authentication CustomAuthentication required
             await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
-
-    
             localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json,application/json; profile=CamelCase,application/json; profile=PascalCase,text/html';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -189,83 +101,11 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
             // authentication CustomAuthentication required
             await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Initiates the forgot password process for a local user.
-         * @param {ForgotPasswordDto} forgotPasswordDto The forgot password request containing the entered username.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        forgotPassword: async (forgotPasswordDto: ForgotPasswordDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'forgotPasswordDto' is not null or undefined
-            assertParamExists('forgotPassword', 'forgotPasswordDto', forgotPasswordDto)
-            const localVarPath = `/Users/ForgotPassword`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json,application/json; profile=CamelCase,application/json; profile=PascalCase,text/html';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(forgotPasswordDto, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Redeems a forgot password pin.
-         * @param {ForgotPasswordPinDto} forgotPasswordPinDto The forgot password pin request containing the entered pin.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        forgotPasswordPin: async (forgotPasswordPinDto: ForgotPasswordPinDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'forgotPasswordPinDto' is not null or undefined
-            assertParamExists('forgotPasswordPin', 'forgotPasswordPinDto', forgotPasswordPinDto)
-            const localVarPath = `/Users/ForgotPassword/Pin`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(forgotPasswordPinDto, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -294,8 +134,8 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
             // authentication CustomAuthentication required
             await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
+            localVarHeaderParameter['Accept'] = 'application/json,application/json; profile=CamelCase,application/json; profile=PascalCase,text/html';
 
-    
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -324,8 +164,8 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            localVarHeaderParameter['Accept'] = 'application/json,application/json; profile=CamelCase,application/json; profile=PascalCase,text/html';
 
-    
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -361,8 +201,8 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
             // authentication CustomAuthentication required
             await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
+            localVarHeaderParameter['Accept'] = 'application/json,application/json; profile=CamelCase,application/json; profile=PascalCase,text/html';
 
-    
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -404,8 +244,8 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['isDisabled'] = isDisabled;
             }
 
+            localVarHeaderParameter['Accept'] = 'application/json,application/json; profile=CamelCase,application/json; profile=PascalCase,text/html';
 
-    
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -445,9 +285,8 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['userId'] = userId;
             }
 
-
-    
             localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json,application/json; profile=CamelCase,application/json; profile=PascalCase,text/html';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -489,9 +328,8 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['userId'] = userId;
             }
 
-
-    
             localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json,application/json; profile=CamelCase,application/json; profile=PascalCase,text/html';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -533,9 +371,8 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['userId'] = userId;
             }
 
-
-    
             localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json,application/json; profile=CamelCase,application/json; profile=PascalCase,text/html';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -576,9 +413,8 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
             // authentication CustomAuthentication required
             await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
-
-    
             localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json,application/json; profile=CamelCase,application/json; profile=PascalCase,text/html';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -595,37 +431,10 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
 
 /**
  * UserApi - functional programming interface
- * @export
  */
 export const UserApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = UserApiAxiosParamCreator(configuration)
     return {
-        /**
-         * 
-         * @summary Authenticates a user by name.
-         * @param {AuthenticateUserByName} authenticateUserByName The M:Jellyfin.Api.Controllers.UserController.AuthenticateUserByName(Jellyfin.Api.Models.UserDtos.AuthenticateUserByName) request.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async authenticateUserByName(authenticateUserByName: AuthenticateUserByName, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AuthenticationResult>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.authenticateUserByName(authenticateUserByName, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['UserApi.authenticateUserByName']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
-         * @summary Authenticates a user with quick connect.
-         * @param {QuickConnectDto} quickConnectDto The Jellyfin.Api.Models.UserDtos.QuickConnectDto request.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async authenticateWithQuickConnect(quickConnectDto: QuickConnectDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AuthenticationResult>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.authenticateWithQuickConnect(quickConnectDto, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['UserApi.authenticateWithQuickConnect']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
         /**
          * 
          * @summary Creates a user.
@@ -650,32 +459,6 @@ export const UserApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteUser(userId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['UserApi.deleteUser']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
-         * @summary Initiates the forgot password process for a local user.
-         * @param {ForgotPasswordDto} forgotPasswordDto The forgot password request containing the entered username.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async forgotPassword(forgotPasswordDto: ForgotPasswordDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ForgotPasswordResult>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.forgotPassword(forgotPasswordDto, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['UserApi.forgotPassword']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
-         * @summary Redeems a forgot password pin.
-         * @param {ForgotPasswordPinDto} forgotPasswordPinDto The forgot password pin request containing the entered pin.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async forgotPasswordPin(forgotPasswordPinDto: ForgotPasswordPinDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PinRedeemResult>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.forgotPasswordPin(forgotPasswordPinDto, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['UserApi.forgotPasswordPin']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -790,31 +573,10 @@ export const UserApiFp = function(configuration?: Configuration) {
 
 /**
  * UserApi - factory interface
- * @export
  */
 export const UserApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
     const localVarFp = UserApiFp(configuration)
     return {
-        /**
-         * 
-         * @summary Authenticates a user by name.
-         * @param {UserApiAuthenticateUserByNameRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        authenticateUserByName(requestParameters: UserApiAuthenticateUserByNameRequest, options?: RawAxiosRequestConfig): AxiosPromise<AuthenticationResult> {
-            return localVarFp.authenticateUserByName(requestParameters.authenticateUserByName, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Authenticates a user with quick connect.
-         * @param {UserApiAuthenticateWithQuickConnectRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        authenticateWithQuickConnect(requestParameters: UserApiAuthenticateWithQuickConnectRequest, options?: RawAxiosRequestConfig): AxiosPromise<AuthenticationResult> {
-            return localVarFp.authenticateWithQuickConnect(requestParameters.quickConnectDto, options).then((request) => request(axios, basePath));
-        },
         /**
          * 
          * @summary Creates a user.
@@ -834,26 +596,6 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          */
         deleteUser(requestParameters: UserApiDeleteUserRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.deleteUser(requestParameters.userId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Initiates the forgot password process for a local user.
-         * @param {UserApiForgotPasswordRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        forgotPassword(requestParameters: UserApiForgotPasswordRequest, options?: RawAxiosRequestConfig): AxiosPromise<ForgotPasswordResult> {
-            return localVarFp.forgotPassword(requestParameters.forgotPasswordDto, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Redeems a forgot password pin.
-         * @param {UserApiForgotPasswordPinRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        forgotPasswordPin(requestParameters: UserApiForgotPasswordPinRequest, options?: RawAxiosRequestConfig): AxiosPromise<PinRedeemResult> {
-            return localVarFp.forgotPasswordPin(requestParameters.forgotPasswordPinDto, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -937,246 +679,120 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
 };
 
 /**
- * Request parameters for authenticateUserByName operation in UserApi.
- * @export
- * @interface UserApiAuthenticateUserByNameRequest
- */
-export interface UserApiAuthenticateUserByNameRequest {
-    /**
-     * The M:Jellyfin.Api.Controllers.UserController.AuthenticateUserByName(Jellyfin.Api.Models.UserDtos.AuthenticateUserByName) request.
-     * @type {AuthenticateUserByName}
-     * @memberof UserApiAuthenticateUserByName
-     */
-    readonly authenticateUserByName: AuthenticateUserByName
-}
-
-/**
- * Request parameters for authenticateWithQuickConnect operation in UserApi.
- * @export
- * @interface UserApiAuthenticateWithQuickConnectRequest
- */
-export interface UserApiAuthenticateWithQuickConnectRequest {
-    /**
-     * The Jellyfin.Api.Models.UserDtos.QuickConnectDto request.
-     * @type {QuickConnectDto}
-     * @memberof UserApiAuthenticateWithQuickConnect
-     */
-    readonly quickConnectDto: QuickConnectDto
-}
-
-/**
  * Request parameters for createUserByName operation in UserApi.
- * @export
- * @interface UserApiCreateUserByNameRequest
  */
 export interface UserApiCreateUserByNameRequest {
     /**
      * The create user by name request body.
-     * @type {CreateUserByName}
-     * @memberof UserApiCreateUserByName
      */
     readonly createUserByName: CreateUserByName
 }
 
 /**
  * Request parameters for deleteUser operation in UserApi.
- * @export
- * @interface UserApiDeleteUserRequest
  */
 export interface UserApiDeleteUserRequest {
     /**
      * The user id.
-     * @type {string}
-     * @memberof UserApiDeleteUser
      */
     readonly userId: string
 }
 
 /**
- * Request parameters for forgotPassword operation in UserApi.
- * @export
- * @interface UserApiForgotPasswordRequest
- */
-export interface UserApiForgotPasswordRequest {
-    /**
-     * The forgot password request containing the entered username.
-     * @type {ForgotPasswordDto}
-     * @memberof UserApiForgotPassword
-     */
-    readonly forgotPasswordDto: ForgotPasswordDto
-}
-
-/**
- * Request parameters for forgotPasswordPin operation in UserApi.
- * @export
- * @interface UserApiForgotPasswordPinRequest
- */
-export interface UserApiForgotPasswordPinRequest {
-    /**
-     * The forgot password pin request containing the entered pin.
-     * @type {ForgotPasswordPinDto}
-     * @memberof UserApiForgotPasswordPin
-     */
-    readonly forgotPasswordPinDto: ForgotPasswordPinDto
-}
-
-/**
  * Request parameters for getUserById operation in UserApi.
- * @export
- * @interface UserApiGetUserByIdRequest
  */
 export interface UserApiGetUserByIdRequest {
     /**
      * The user id.
-     * @type {string}
-     * @memberof UserApiGetUserById
      */
     readonly userId: string
 }
 
 /**
  * Request parameters for getUsers operation in UserApi.
- * @export
- * @interface UserApiGetUsersRequest
  */
 export interface UserApiGetUsersRequest {
     /**
      * Optional filter by IsHidden&#x3D;true or false.
-     * @type {boolean}
-     * @memberof UserApiGetUsers
      */
     readonly isHidden?: boolean
 
     /**
      * Optional filter by IsDisabled&#x3D;true or false.
-     * @type {boolean}
-     * @memberof UserApiGetUsers
      */
     readonly isDisabled?: boolean
 }
 
 /**
  * Request parameters for updateUser operation in UserApi.
- * @export
- * @interface UserApiUpdateUserRequest
  */
 export interface UserApiUpdateUserRequest {
     /**
      * The updated user model.
-     * @type {UserDto}
-     * @memberof UserApiUpdateUser
      */
     readonly userDto: UserDto
 
     /**
      * The user id.
-     * @type {string}
-     * @memberof UserApiUpdateUser
      */
     readonly userId?: string
 }
 
 /**
  * Request parameters for updateUserConfiguration operation in UserApi.
- * @export
- * @interface UserApiUpdateUserConfigurationRequest
  */
 export interface UserApiUpdateUserConfigurationRequest {
     /**
      * The new user configuration.
-     * @type {UserConfiguration}
-     * @memberof UserApiUpdateUserConfiguration
      */
     readonly userConfiguration: UserConfiguration
 
     /**
      * The user id.
-     * @type {string}
-     * @memberof UserApiUpdateUserConfiguration
      */
     readonly userId?: string
 }
 
 /**
  * Request parameters for updateUserPassword operation in UserApi.
- * @export
- * @interface UserApiUpdateUserPasswordRequest
  */
 export interface UserApiUpdateUserPasswordRequest {
     /**
      * The M:Jellyfin.Api.Controllers.UserController.UpdateUserPassword(System.Nullable{System.Guid},Jellyfin.Api.Models.UserDtos.UpdateUserPassword) request.
-     * @type {UpdateUserPassword}
-     * @memberof UserApiUpdateUserPassword
      */
     readonly updateUserPassword: UpdateUserPassword
 
     /**
      * The user id.
-     * @type {string}
-     * @memberof UserApiUpdateUserPassword
      */
     readonly userId?: string
 }
 
 /**
  * Request parameters for updateUserPolicy operation in UserApi.
- * @export
- * @interface UserApiUpdateUserPolicyRequest
  */
 export interface UserApiUpdateUserPolicyRequest {
     /**
      * The user id.
-     * @type {string}
-     * @memberof UserApiUpdateUserPolicy
      */
     readonly userId: string
 
     /**
      * The new user policy.
-     * @type {UserPolicy}
-     * @memberof UserApiUpdateUserPolicy
      */
     readonly userPolicy: UserPolicy
 }
 
 /**
  * UserApi - object-oriented interface
- * @export
- * @class UserApi
- * @extends {BaseAPI}
  */
 export class UserApi extends BaseAPI {
-    /**
-     * 
-     * @summary Authenticates a user by name.
-     * @param {UserApiAuthenticateUserByNameRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserApi
-     */
-    public authenticateUserByName(requestParameters: UserApiAuthenticateUserByNameRequest, options?: RawAxiosRequestConfig) {
-        return UserApiFp(this.configuration).authenticateUserByName(requestParameters.authenticateUserByName, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Authenticates a user with quick connect.
-     * @param {UserApiAuthenticateWithQuickConnectRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserApi
-     */
-    public authenticateWithQuickConnect(requestParameters: UserApiAuthenticateWithQuickConnectRequest, options?: RawAxiosRequestConfig) {
-        return UserApiFp(this.configuration).authenticateWithQuickConnect(requestParameters.quickConnectDto, options).then((request) => request(this.axios, this.basePath));
-    }
-
     /**
      * 
      * @summary Creates a user.
      * @param {UserApiCreateUserByNameRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof UserApi
      */
     public createUserByName(requestParameters: UserApiCreateUserByNameRequest, options?: RawAxiosRequestConfig) {
         return UserApiFp(this.configuration).createUserByName(requestParameters.createUserByName, options).then((request) => request(this.axios, this.basePath));
@@ -1188,7 +804,6 @@ export class UserApi extends BaseAPI {
      * @param {UserApiDeleteUserRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof UserApi
      */
     public deleteUser(requestParameters: UserApiDeleteUserRequest, options?: RawAxiosRequestConfig) {
         return UserApiFp(this.configuration).deleteUser(requestParameters.userId, options).then((request) => request(this.axios, this.basePath));
@@ -1196,34 +811,9 @@ export class UserApi extends BaseAPI {
 
     /**
      * 
-     * @summary Initiates the forgot password process for a local user.
-     * @param {UserApiForgotPasswordRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserApi
-     */
-    public forgotPassword(requestParameters: UserApiForgotPasswordRequest, options?: RawAxiosRequestConfig) {
-        return UserApiFp(this.configuration).forgotPassword(requestParameters.forgotPasswordDto, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Redeems a forgot password pin.
-     * @param {UserApiForgotPasswordPinRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserApi
-     */
-    public forgotPasswordPin(requestParameters: UserApiForgotPasswordPinRequest, options?: RawAxiosRequestConfig) {
-        return UserApiFp(this.configuration).forgotPasswordPin(requestParameters.forgotPasswordPinDto, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
      * @summary Gets the user based on auth token.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof UserApi
      */
     public getCurrentUser(options?: RawAxiosRequestConfig) {
         return UserApiFp(this.configuration).getCurrentUser(options).then((request) => request(this.axios, this.basePath));
@@ -1234,7 +824,6 @@ export class UserApi extends BaseAPI {
      * @summary Gets a list of publicly visible users for display on a login screen.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof UserApi
      */
     public getPublicUsers(options?: RawAxiosRequestConfig) {
         return UserApiFp(this.configuration).getPublicUsers(options).then((request) => request(this.axios, this.basePath));
@@ -1246,7 +835,6 @@ export class UserApi extends BaseAPI {
      * @param {UserApiGetUserByIdRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof UserApi
      */
     public getUserById(requestParameters: UserApiGetUserByIdRequest, options?: RawAxiosRequestConfig) {
         return UserApiFp(this.configuration).getUserById(requestParameters.userId, options).then((request) => request(this.axios, this.basePath));
@@ -1258,7 +846,6 @@ export class UserApi extends BaseAPI {
      * @param {UserApiGetUsersRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof UserApi
      */
     public getUsers(requestParameters: UserApiGetUsersRequest = {}, options?: RawAxiosRequestConfig) {
         return UserApiFp(this.configuration).getUsers(requestParameters.isHidden, requestParameters.isDisabled, options).then((request) => request(this.axios, this.basePath));
@@ -1270,7 +857,6 @@ export class UserApi extends BaseAPI {
      * @param {UserApiUpdateUserRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof UserApi
      */
     public updateUser(requestParameters: UserApiUpdateUserRequest, options?: RawAxiosRequestConfig) {
         return UserApiFp(this.configuration).updateUser(requestParameters.userDto, requestParameters.userId, options).then((request) => request(this.axios, this.basePath));
@@ -1282,7 +868,6 @@ export class UserApi extends BaseAPI {
      * @param {UserApiUpdateUserConfigurationRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof UserApi
      */
     public updateUserConfiguration(requestParameters: UserApiUpdateUserConfigurationRequest, options?: RawAxiosRequestConfig) {
         return UserApiFp(this.configuration).updateUserConfiguration(requestParameters.userConfiguration, requestParameters.userId, options).then((request) => request(this.axios, this.basePath));
@@ -1294,7 +879,6 @@ export class UserApi extends BaseAPI {
      * @param {UserApiUpdateUserPasswordRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof UserApi
      */
     public updateUserPassword(requestParameters: UserApiUpdateUserPasswordRequest, options?: RawAxiosRequestConfig) {
         return UserApiFp(this.configuration).updateUserPassword(requestParameters.updateUserPassword, requestParameters.userId, options).then((request) => request(this.axios, this.basePath));
@@ -1306,7 +890,6 @@ export class UserApi extends BaseAPI {
      * @param {UserApiUpdateUserPolicyRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof UserApi
      */
     public updateUserPolicy(requestParameters: UserApiUpdateUserPolicyRequest, options?: RawAxiosRequestConfig) {
         return UserApiFp(this.configuration).updateUserPolicy(requestParameters.userId, requestParameters.userPolicy, options).then((request) => request(this.axios, this.basePath));

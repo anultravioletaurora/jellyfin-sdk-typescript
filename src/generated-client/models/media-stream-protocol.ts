@@ -14,9 +14,7 @@
 
 
 /**
- * Media streaming protocol.  Lowercase for backwards compatibility.
- * @export
- * @enum {string}
+ * Media streaming protocol. Lowercase for backwards compatibility.
  */
 
 export const MediaStreamProtocol = {
